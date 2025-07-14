@@ -1,36 +1,51 @@
 'use client';
 
-import { Box, Typography, IconButton, Card, CardContent } from '@mui/material';
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { useState } from 'react';
+import { Box, Card } from '@mui/material';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const data = [
-    { id: 1, title: 'Projeto 1', description: 'Descrição do projeto 1' },
-    { id: 2, title: 'Projeto 2', description: 'Descrição do projeto 2' },
-    { id: 3, title: 'Projeto 3', description: 'Descrição do projeto 3' },
-    { id: 4, title: 'Projeto 4', description: 'Descrição do projeto 4' },
+    {
+        id: 1,
+        frente: 'camisa azul frente.png',
+        costa: 'camisa azul costa.png',
+    },
+    {
+        id: 2,
+        frente: 'camisa amarela frente.png',
+        costa: 'camisa amarela costa.png',
+    },
+    {
+        id: 3,
+        frente: 'camisa raimundo frente.png',
+        costa: 'camisa raimundo costa.png',
+    },
+    {
+        id: 4,
+        frente: 'camisa roxa frente.png',
+        costa: 'camisa roxa costa.png',
+    },
+    {
+        id: 5,
+        frente: 'manga longa frente.png',
+        costa: 'manga longa costa.png',
+    },
 ];
 
 export default function CardShirt() {
-    const [startIndex, setStartIndex] = useState(0);
-    const [direction, setDirection] = useState(0); // 1 para direita, -1 para esquerda
+    const [showBackArray, setShowBackArray] = useState(data.map(() => false));
 
-    const handlePrev = () => {
-        if (startIndex > 0) {
-            setDirection(-1);
-            setStartIndex((prev) => Math.max(prev - 1, 0));
-        }
-    };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setShowBackArray(prev =>
+                prev.map(val => !val)
+            );
+        }, 10000);
+        return () => clearInterval(interval);
+    }, []);
 
-    const handleNext = () => {
-        if (startIndex + 3 < data.length) {
-            setDirection(1);
-            setStartIndex((prev) => prev + 1);
-        }
-    };
-
-    const visibleCards = data.slice(startIndex, startIndex + 3);
+    const margin = 24;
+    const width = 500;
 
     return (
         <Box
@@ -38,69 +53,84 @@ export default function CardShirt() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: '#7397AD',
                 padding: 2,
-                gap: 4,
                 mt: 4,
                 position: 'relative',
                 overflow: 'hidden',
             }}
         >
-            {/* Seta esquerda */}
-            <IconButton
-                onClick={handlePrev}
+            <Box
                 sx={{
-                    visibility: startIndex === 0 ? 'hidden' : 'visible',
+                    display: 'flex',
+                    overflow: 'hidden',
+                    width: 1400,
+                    justifyContent: 'flex-start',
+                    gap: 0,
                 }}
             >
-                <ChevronLeft sx={{ color: '#fff' }} />
-            </IconButton>
+                {data.map((item, index) => {
+                    const showBack = showBackArray[index];
 
-            {/* Área animada */}
-            <Box sx={{ display: 'flex', overflow: 'hidden', width: 800 }}>
-                <AnimatePresence initial={false} mode="wait">
-                    <motion.div
-                        key={startIndex}
-                        initial={{ x: direction === 1 ? 300 : -300, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: direction === 1 ? -300 : 300, opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        style={{ display: 'flex', gap: '32px' }}
-                    >
-                        {visibleCards.map((item) => (
+                    return (
+                        <motion.div
+                            key={item.id}
+                            animate={{
+                                width,
+                                opacity: 1,
+                                zIndex: 4,
+                            }}
+                            transition={{ duration: 0.6 }}
+                            style={{
+                                height: 400,
+                                marginInline: margin,
+                                transformOrigin: 'center',
+                            }}
+                        >
                             <Card
-                                key={item.id}
                                 sx={{
-                                    width: 250,
-                                    height: 350,
+                                    width: '100%',
+                                    height: '100%',
                                     backgroundColor: '#98ADBA',
-                                    transition: 'all 0.3s ease-in-out',
-                                    '&:hover': {
-                                        transform: 'scale(1.05)',
-                                        boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
-                                        borderRadius: '8px',
-                                    },
+                                    borderRadius: '8px',
+                                    boxShadow: '0 6px 16px rgba(0,0,0,0.3)',
+                                    cursor: 'pointer',
+                                    overflow: 'hidden',
+                                    position: 'relative',
                                 }}
                             >
-                                <CardContent>
-
-                                </CardContent>
+                                <Box
+                                    sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        position: 'relative',
+                                    }}
+                                >
+                                    <AnimatePresence mode="wait">
+                                        <motion.img
+                                            key={showBack ? item.costa : item.frente}
+                                            src={`/images/${showBack ? item.costa : item.frente}`}
+                                            alt={`Imagem ${item.id}`}
+                                            initial={{ opacity: 0, x: 100 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -100 }}
+                                            transition={{ duration: 0.6 }}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'cover',
+                                                position: 'absolute',
+                                                top: 0,
+                                                left: 0,
+                                                borderRadius: '8px',
+                                            }}
+                                        />
+                                    </AnimatePresence>
+                                </Box>
                             </Card>
-                        ))}
-
-                    </motion.div>
-                </AnimatePresence>
+                        </motion.div>
+                    );
+                })}
             </Box>
-
-            {/* Seta direita */}
-            <IconButton
-                onClick={handleNext}
-                sx={{
-                    visibility: startIndex + 3 >= data.length ? 'hidden' : 'visible',
-                }}
-            >
-                <ChevronRight sx={{ color: '#fff' }} />
-            </IconButton>
         </Box>
     );
 }
