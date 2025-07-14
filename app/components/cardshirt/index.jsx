@@ -37,100 +37,84 @@ export default function CardShirt() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setShowBackArray(prev =>
-                prev.map(val => !val)
-            );
+            setShowBackArray(prev => prev.map(val => !val));
         }, 10000);
         return () => clearInterval(interval);
     }, []);
-
-    const margin = 24;
-    const width = 500;
 
     return (
         <Box
             sx={{
                 display: 'flex',
-                alignItems: 'center',
+                flexWrap: 'wrap',
                 justifyContent: 'center',
+                gap: { xs: '1rem', sm: '1.5rem', md: '2rem' },
                 padding: 2,
                 mt: 4,
-                position: 'relative',
-                overflow: 'hidden',
             }}
         >
-            <Box
-                sx={{
-                    display: 'flex',
-                    overflow: 'hidden',
-                    width: 1400,
-                    justifyContent: 'flex-start',
-                    gap: 0,
-                }}
-            >
-                {data.map((item, index) => {
-                    const showBack = showBackArray[index];
+            {data.map((item, index) => {
+                const showBack = showBackArray[index];
 
-                    return (
-                        <motion.div
-                            key={item.id}
-                            animate={{
-                                width,
-                                opacity: 1,
-                                zIndex: 4,
-                            }}
-                            transition={{ duration: 0.6 }}
-                            style={{
-                                height: 400,
-                                marginInline: margin,
-                                transformOrigin: 'center',
+                return (
+                    <motion.div
+                        key={item.id}
+                        animate={{
+                            opacity: 1,
+                            zIndex: 4,
+                        }}
+                        transition={{ duration: 0.6 }}
+                        style={{
+                            width: '100%',
+                            maxWidth: 400,
+                            height: 400,
+                            transformOrigin: 'center',
+                        }}
+                    >
+                        <Card
+                            sx={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#98ADBA',
+                                borderRadius: '8px',
+                                boxShadow: '0 6px 16px rgba(0,0,0,0.3)',
+                                cursor: 'pointer',
+                                overflow: 'hidden',
+                                position: 'relative',
                             }}
                         >
-                            <Card
+                            <Box
                                 sx={{
                                     width: '100%',
                                     height: '100%',
-                                    backgroundColor: '#98ADBA',
-                                    borderRadius: '8px',
-                                    boxShadow: '0 6px 16px rgba(0,0,0,0.3)',
-                                    cursor: 'pointer',
-                                    overflow: 'hidden',
                                     position: 'relative',
                                 }}
                             >
-                                <Box
-                                    sx={{
-                                        width: '100%',
-                                        height: '100%',
-                                        position: 'relative',
-                                    }}
-                                >
-                                    <AnimatePresence mode="wait">
-                                        <motion.img
-                                            key={showBack ? item.costa : item.frente}
-                                            src={`/images/${showBack ? item.costa : item.frente}`}
-                                            alt={`Imagem ${item.id}`}
-                                            initial={{ opacity: 0, x: 100 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: -100 }}
-                                            transition={{ duration: 0.6 }}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'cover',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                borderRadius: '8px',
-                                            }}
-                                        />
-                                    </AnimatePresence>
-                                </Box>
-                            </Card>
-                        </motion.div>
-                    );
-                })}
-            </Box>
+                                <AnimatePresence mode="wait">
+                                    <motion.img
+                                        key={showBack ? item.costa : item.frente}
+                                        src={`/images/${showBack ? item.costa : item.frente}`}
+                                        alt={`Imagem ${item.id}`}
+                                        initial={{ opacity: 0, x: 100 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -100 }}
+                                        transition={{ duration: 0.6 }}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            borderRadius: '8px',
+                                        }}
+                                    />
+                                </AnimatePresence>
+                            </Box>
+                        </Card>
+                    </motion.div>
+                );
+            })}
         </Box>
     );
 }

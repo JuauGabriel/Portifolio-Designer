@@ -36,8 +36,8 @@ export default function CardBanner() {
     return (
         <Box
             sx={{
-                mb: 3,
-                padding: 2,
+                mb: '2.5rem',
+                padding: '1rem',
                 display: 'flex',
                 overflow: 'hidden',
                 alignItems: 'center',
@@ -45,13 +45,10 @@ export default function CardBanner() {
                 justifyContent: 'center',
             }}
         >
-            <IconButton onClick={handlePrev}>
-                <ChevronLeft sx={{ color: '#fff' }} />
-            </IconButton>
 
             <Box
                 sx={{
-                    width: 600,
+                    width: 650,
                     height: 300,
                     position: 'relative',
                 }}
@@ -70,7 +67,7 @@ export default function CardBanner() {
                                 width: '100%',
                                 height: '100%',
                                 backgroundColor: '#98ADBA',
-                                borderRadius: '12px',
+                                borderRadius: '10px',
                                 boxShadow: '0 6px 16px rgba(0,0,0,0.3)',
                                 cursor: 'pointer',
                                 overflow: 'hidden',
@@ -89,10 +86,6 @@ export default function CardBanner() {
                     </motion.div>
                 </AnimatePresence>
             </Box>
-
-            <IconButton onClick={handleNext}>
-                <ChevronRight sx={{ color: '#fff' }} />
-            </IconButton>
         </Box>
     );
 }

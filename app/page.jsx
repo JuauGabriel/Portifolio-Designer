@@ -13,80 +13,51 @@ export default function Home() {
         <Box sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '#252323' }}>
             <Box
                 sx={{
-                    p: 3,
+                    p: '1.5rem',
                     width: '100%',
                     display: 'flex',
                     justifyContent: 'space-between',
                     borderBottom: '1px solid #9FB4C2',
                 }}
             >
-                <Typography sx={{ color: '#7397AD', fontSize: '24px', display: 'flex' }}>
+                <Typography sx={{ color: '#7397AD', fontSize: '1.5rem', display: 'flex' }}>
                     Sua logo aqui
                 </Typography>
 
-                <Box
-                    sx={{
-                        gap: 6,
-                        display: 'flex',
-                    }}
-                >
-                    <Typography sx={{ color: '#7397AD', fontSize: '20px' }}>
-                        Sobre
-                    </Typography>
-
-                    <Typography sx={{ color: '#7397AD', fontSize: '20px' }}>
-                        Trabalhos
-                    </Typography>
-
-                    <Typography sx={{ color: '#7397AD', fontSize: '20px' }}>
-                        Contato
-                    </Typography>
+                <Box sx={{ gap: '3rem', display: 'flex' }}>
+                    <Typography sx={{ color: '#7397AD', fontSize: '1.25rem' }}>Sobre</Typography>
+                    <Typography sx={{ color: '#7397AD', fontSize: '1.25rem' }}>Trabalhos</Typography>
+                    <Typography sx={{ color: '#7397AD', fontSize: '1.25rem' }}>Contato</Typography>
                 </Box>
             </Box>
 
             <Box
                 sx={{
-                    mt: 10,
-                    mb: 10,
+                    mt: '5rem',
+                    mb: '5rem',
                     display: 'flex',
                     justifyContent: 'center',
                     width: '100%',
-                    ml: 30,
-                    gap: 3,
+                    ml: '15rem',
+                    gap: '1.5rem',
                 }}
             >
-                <Avatar
-                    sx={{
-                        width: '250px',
-                        height: '250px',
+                <Avatar sx={{ width: '15.625rem', height: '15.625rem' }} />
 
-                    }}
-                />
-
-                <Box
-                    sx={{ display: 'flex', flexDirection: 'column', }}
-                >
-                    <Typography
-                        sx={{
-                            mt: 3,
-                            color: 'white',
-                            fontSize: '34px',
-                        }}
-                    >
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Typography sx={{ mt: '1.5rem', color: 'white', fontSize: '2.125rem' }}>
                         Neves Arts
                     </Typography>
 
                     <Typography
                         sx={{
-                            mt: 1,
+                            mt: '0.5rem',
                             color: 'white',
-                            fontSize: '22px',
+                            fontSize: '1.375rem',
                             width: '40%',
                         }}
                     >
-                        Somos uma marca que transforma ideias em estampas criativas,
-                        unindo estilo e personalidade. Com foco em qualidade e originalidade,
-                        levamos arte para camisetas, canecas e acessórios, criando produtos que inspiram e se destacam.
+                        Somos uma marca que transforma ideias em estampas criativas, unindo estilo e personalidade. Com foco em qualidade e originalidade, levamos arte para camisetas, canecas e acessórios, criando produtos que inspiram e se destacam.
                     </Typography>
                 </Box>
             </Box>
@@ -96,39 +67,37 @@ export default function Home() {
                     width: '80%',
                     height: 'auto',
                     display: 'flex',
-                    margin: '20px auto',
-                    borderRadius: '10px',
+                    margin: '1.25rem auto',
+                    borderRadius: '0.625rem',
                     flexDirection: 'column',
                 }}
             >
-
-                <Typography sx={{ color: 'white', fontSize: '32px', mt: 3, ml: 6 }}>Camisas personalizadas</Typography>
+                <Typography sx={{ color: 'white', fontSize: '2rem', mt: '1.5rem', ml: '1.5rem' }}>
+                    Camisas personalizadas
+                </Typography>
 
                 <CardShirt />
 
                 <Box
                     sx={{
-                        mt: 4,
-                        gap: 5,
-                        px: 4,
-                        height: '450px',
+                        mt: '2rem',
+                        gap: '1.25rem',
+                        px: '2rem',
+                        height: '28.125rem',
                         display: 'flex',
-                        borderRadius: '8px',
+                        borderRadius: '0.5rem',
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'center',
                         backgroundColor: '#7397AD',
                         width: '87%',
-                        mx: 'auto'
+                        mx: 'auto',
                     }}
                 >
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                        }}
-                    >
-                        <Typography sx={{ color: 'white', fontSize: '32px', mt: 3, ml: 7 }}>Banners</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Typography sx={{ color: 'white', fontSize: '2rem', mt: '1.5rem', ml: '1.20rem' }}>
+                            Banners
+                        </Typography>
 
                         <CardBanner />
                     </Box>
@@ -136,55 +105,63 @@ export default function Home() {
                     <Typography
                         sx={{
                             color: 'white',
-                            fontSize: '22px',
-                            maxWidth: 400,
+                            fontSize: '1.375rem',
+                            maxWidth: '25rem',
                             textAlign: 'justify',
                         }}
                     >
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                        Incidunt molestiae sed velit asperiores ullam dolore maiores quisquam eos quo
-                        rerum similique obcaecati veritatis, nesciunt optio architecto dolores quod porro at?
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt molestiae sed velit asperiores ullam dolore maiores quisquam eos quo rerum similique obcaecati veritatis, nesciunt optio architecto dolores quod porro at?
                     </Typography>
                 </Box>
 
-                <Typography sx={{ color: 'white', fontSize: '38px', mx: 'auto', mt: 5, mb: 2 }}>Convites</Typography>
+                <Typography sx={{ color: 'white', fontSize: '2.375rem', mx: 'auto', mt: '3rem', mb: '1rem' }}>
+                    Convites
+                </Typography>
 
                 <CardInvite />
             </Box>
 
             <Box
                 sx={{
-                    mt: 6,
+                    mt: '3rem',
                     width: '90%',
-                    height: '380px',
+                    height: '23.75rem',
                     display: 'flex',
                     flexDirection: 'column',
                 }}
             >
-                <Typography sx={{ color: 'white', fontSize: '38px', ml: 31, mt: 4, }}>Entre em contato com a gente e faça seu orçamento</Typography>
+                <Typography sx={{ color: 'white', fontSize: '2.375rem', ml: '15.5rem', mt: '1rem' }}>
+                    Entre em contato com a gente e faça seu orçamento
+                </Typography>
 
                 <Box
                     sx={{
-                        mt: 3,
-                        ml: 31,
+                        mt: '1.5rem',
+                        ml: '15.5rem',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 3 }}>
-                        <FaWhatsapp style={{ color: 'white', fontSize: 32 }} />
-                        <Typography sx={{ color: 'white', fontSize: '26px' }}>Telefone/Whatsapp: (91) 00000-0000</Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem', mt: '1.5rem' }}>
+                        <FaWhatsapp style={{ color: 'white', fontSize: '2rem' }} />
+                        <Typography sx={{ color: 'white', fontSize: '1.625rem' }}>
+                            Telefone/Whatsapp: (91) 00000-0000
+                        </Typography>
                     </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 3 }}>
-                        <EmailIcon style={{ color: 'white', fontSize: 32 }} />
-                        <Typography sx={{ color: 'white', fontSize: '26px' }}>Email: Contato@estampascriativas</Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem', mt: '1.5rem' }}>
+                        <EmailIcon style={{ color: 'white', fontSize: '2rem' }} />
+                        <Typography sx={{ color: 'white', fontSize: '1.625rem' }}>
+                            Email: Contato@estampascriativas
+                        </Typography>
                     </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 3 }}>
-                        <FaInstagram style={{ color: 'white', fontSize: 32 }} />
-                        <Typography sx={{ color: 'white', fontSize: '26px' }}>Instagram: @NevesArts</Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem', mt: '1.5rem' }}>
+                        <FaInstagram style={{ color: 'white', fontSize: '2rem' }} />
+                        <Typography sx={{ color: 'white', fontSize: '1.625rem' }}>
+                            Instagram: @NevesArts
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
