@@ -4,13 +4,20 @@ import 'normalize.css';
 import CardShirt from './components/cardshirt';
 import CardBanner from './components/cardbanner';
 import CardInvite from './components/cardinvite';
-import { Box, Typography, Avatar, Container } from '@mui/material';
+import { Box, Typography, Avatar, Container, } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
 
 export default function Home() {
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <Box sx={{ backgroundColor: '#252323' }}>
+        <Box sx={{ backgroundColor: '#252323', width: '100%', overflowX: 'hidden', }}>
             {/* Header */}
             <Box
                 sx={{
@@ -23,19 +30,36 @@ export default function Home() {
                     borderBottom: '1px solid #9FB4C2',
                 }}
             >
-                <Typography sx={{ color: '#7397AD', fontSize: '1.5rem' }}>
+                <Typography sx={{ color: '#7397AD', fontSize: { md: '1.5rem', xs: '1rem' } }}>
                     Sua logo aqui
                 </Typography>
 
-                <Box sx={{ display: 'flex', gap: '1.5rem', mt: { xs: '1rem', md: 0 } }}>
-                    <Typography sx={{ color: '#7397AD', fontSize: '1.25rem' }}>Sobre</Typography>
-                    <Typography sx={{ color: '#7397AD', fontSize: '1.25rem' }}>Trabalhos</Typography>
-                    <Typography sx={{ color: '#7397AD', fontSize: '1.25rem' }}>Contato</Typography>
+                <Box sx={{ display: 'flex', gap: { md: '1.5rem', xs: '1rem' }, mt: { xs: '1rem', md: 0 } }}>
+                    <Typography
+                        onClick={() => scrollToSection('sobre')}
+                        sx={{ color: '#7397AD', fontSize: { md: '1.25rem', xs: '1rem' }, cursor: 'pointer' }}
+                    >
+                        Sobre
+                    </Typography>
+                    <Typography
+                        onClick={() => scrollToSection('trabalhos')}
+                        sx={{ color: '#7397AD', fontSize: { md: '1.25rem', xs: '1rem' }, cursor: 'pointer' }}
+                    >
+                        Trabalhos
+                    </Typography>
+                    <Typography
+                        onClick={() => scrollToSection('contato')}
+                        sx={{ color: '#7397AD', fontSize: { md: '1.25rem', xs: '1rem' }, cursor: 'pointer' }}
+                    >
+                        Contato
+                    </Typography>
                 </Box>
+
             </Box>
 
             {/* Intro */}
             <Box
+                id="sobre"
                 sx={{
                     mt: '4rem',
                     mb: '4rem',
@@ -47,10 +71,10 @@ export default function Home() {
                     gap: '1.5rem',
                 }}
             >
-                <Avatar sx={{ width: '15.625rem', height: '15.625rem' }} />
+                <Avatar sx={{ width: { md: '15.625rem', xs: '12rem' }, height: { md: '15.625rem', xs: '12rem' } }} />
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: { xs: 'center', md: 'left' } }}>
-                    <Typography sx={{ mt: '1.5rem', color: 'white', fontSize: '2.125rem' }}>
+                    <Typography sx={{ mt: '1.5rem', color: 'white', fontSize: { md: '2.125rem', xs: '2rem' } }}>
                         Neves Arts
                     </Typography>
 
@@ -58,7 +82,7 @@ export default function Home() {
                         sx={{
                             mt: '0.5rem',
                             color: 'white',
-                            fontSize: '1.375rem',
+                            fontSize: { md: '1.375rem', xs: '1.20rem' },
                             maxWidth: '40rem',
                             mx: { xs: 'auto', md: 0 },
                         }}
@@ -69,9 +93,9 @@ export default function Home() {
             </Box>
 
             {/* Conteúdo Principal */}
-            <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Container id='trabalhos' maxWidth="xl" sx={{ display: 'flex', flexDirection: 'column' }}>
                 {/* Camisas */}
-                <Typography sx={{ color: 'white', fontSize: '2rem', mt: '1.5rem' }}>
+                <Typography sx={{ color: 'white', fontSize: { md: '2rem', xs: '1.5rem' }, mt: '1.5rem', ml: { md: '4rem', xs: '3.5rem' } }}>
                     Camisas personalizadas
                 </Typography>
 
@@ -80,44 +104,41 @@ export default function Home() {
                 {/* Banners */}
                 <Box
                     sx={{
+                        p: 1,
                         mt: '2rem',
-                        gap: '1.25rem',
-                        px: '1rem',
-                        py: '2rem',
                         display: 'flex',
-                        flexDirection: { xs: 'column', md: 'row' },
+                        flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
                         backgroundColor: '#7397AD',
                         borderRadius: '0.5rem',
+                        width: { md: '85%', xs: '90%' },
+                        mx: 'auto',
+                        overflow: 'hidden',
                     }}
                 >
-                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Typography sx={{ color: 'white', fontSize: '2rem', mb: '1rem' }}>
-                            Banners
-                        </Typography>
-
-                        <CardBanner />
-                    </Box>
-
                     <Typography
                         sx={{
                             color: 'white',
-                            fontSize: '1.375rem',
-                            maxWidth: '25rem',
-                            textAlign: 'justify',
-                            px: { xs: 2, md: 0 },
+                            fontSize: { md: '2rem', xs: '1.5rem' },
+                            mb: '1rem',
+                            textAlign: 'center',
                         }}
                     >
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt molestiae sed velit asperiores ullam dolore maiores quisquam eos quo rerum similique obcaecati veritatis, nesciunt optio architecto dolores quod porro at?
+                        Banners
                     </Typography>
+
+                    <Box sx={{ width: '100%' }}>
+                        <CardBanner />
+                    </Box>
                 </Box>
+
 
                 {/* Convites */}
                 <Typography
                     sx={{
                         color: 'white',
-                        fontSize: '2.375rem',
+                        fontSize: { md: '2rem', xs: '1.5rem' },
                         mx: 'auto',
                         mt: '3rem',
                         mb: '1rem',
@@ -132,6 +153,7 @@ export default function Home() {
 
             {/* Contato */}
             <Box
+                id="contato"
                 sx={{
                     mt: '3rem',
                     px: { xs: 2, md: '10%' },
@@ -145,7 +167,7 @@ export default function Home() {
                 <Typography
                     sx={{
                         color: 'white',
-                        fontSize: '2.375rem',
+                        fontSize: { md: '2.375rem', xs: '1.5rem' },
                         textAlign: 'center',
                         mt: '1rem',
                     }}
@@ -163,21 +185,21 @@ export default function Home() {
                 >
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <FaWhatsapp style={{ color: 'white', fontSize: '2rem' }} />
-                        <Typography sx={{ color: 'white', fontSize: '1.625rem' }}>
+                        <Typography sx={{ color: 'white', fontSize: { md: '1.625rem', xs: '1rem' } }}>
                             Telefone/Whatsapp: (91) 00000-0000
                         </Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <EmailIcon style={{ color: 'white', fontSize: '2rem' }} />
-                        <Typography sx={{ color: 'white', fontSize: '1.625rem' }}>
+                        <Typography sx={{ color: 'white', fontSize: { md: '1.625rem', xs: '1rem' } }}>
                             Email: Contato@estampascriativas
                         </Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <FaInstagram style={{ color: 'white', fontSize: '2rem' }} />
-                        <Typography sx={{ color: 'white', fontSize: '1.625rem' }}>
+                        <Typography sx={{ color: 'white', fontSize: { md: '1.625rem', xs: '1rem' } }}>
                             Instagram: @NevesArts
                         </Typography>
                     </Box>
