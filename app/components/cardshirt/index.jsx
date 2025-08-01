@@ -1,11 +1,12 @@
 'use client';
 
-import { Box, Card, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Card, useMediaQuery, useTheme, CircularProgress } from '@mui/material';
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+
 const data = [
-  { id: 1, frente: 'camisa azul frente.webp', costa: 'camisa azul costa (2).webp' },
+  { id: 1, frente: 'camisa azul frente.webp', costa: 'camisa azul costa.webp' },
   { id: 2, frente: 'camisa amarela frente.webp', costa: 'camisa amarela costa.webp' },
   { id: 3, frente: 'camisa roxa frente.webp', costa: 'camisa roxa costa.webp' },
   { id: 4, frente: 'camisa preta frente.webp', costa: 'camisa preta costa.webp' },
@@ -13,14 +14,27 @@ const data = [
 
 export default function CardShirt() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
+  const [isClient, setIsClient] = useState(false);
 
-  const [hasMounted, setHasMounted] = useState(false);
+  const [loadingStates, setLoadingStates] = useState(() =>
+    data.reduce((acc, item) => {
+      acc[item.id] = true;
+      return acc;
+    }, {})
+  );
+
+  const handleImageLoad = (id) => {
+    setLoadingStates((prev) => ({ ...prev, [id]: false }));
+  };
+
   useEffect(() => {
-    setHasMounted(true);
+    setIsClient(true);
   }, []);
 
-  const [showBackArray, setShowBackArray] = useState(data.map(() => false));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
+
+
+  const [showBackArray, setShowBackArray] = useState(() => data.map(() => false));
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -36,14 +50,14 @@ export default function CardShirt() {
       map[item.id] = showBackArray[i];
     });
     return map;
-  }, [data, showBackArray]);
+  }, [showBackArray]);
 
   const getItem = (offset) => {
     const index = (currentIndex + offset + data.length) % data.length;
     return data[index];
   };
 
-  const handleDragEnd = (event, info) => {
+  const handleDragEnd = (_, info) => {
     const threshold = 50;
     if (info.offset.x < -threshold) {
       setCurrentIndex((prev) => (prev + 1) % data.length);
@@ -52,7 +66,8 @@ export default function CardShirt() {
     }
   };
 
-  if (!hasMounted) return null;
+  if (!isClient) return null;
+
 
   if (isMobile) {
     return (
@@ -108,23 +123,45 @@ export default function CardShirt() {
                 >
                   <Box sx={{ width: '100%', height: '100%', position: 'relative' }}>
                     <AnimatePresence mode="wait">
-                      <motion.img
-                        key={showBack ? `back-${item.id}` : `front-${item.id}`}
-                        src={`/images/${showBack ? item.costa : item.frente}`}
-                        alt={`Imagem ${item.id}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                        }}
-                      />
+                      <>
+                        {loadingStates[item.id] && (
+                          <Box
+                            sx={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: '100%',
+                              height: '100%',
+                              bgcolor: 'rgba(0,0,0,0.3)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              zIndex: 2,
+                            }}
+                          >
+                            <CircularProgress color="inherit" />
+                          </Box>
+                        )}
+
+                        <motion.img
+                          key={showBack ? `back-${item.id}` : `front-${item.id}`}
+                          src={`/images/${showBack ? item.costa : item.frente}`}
+                          alt={`Imagem ${item.id}`}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          onLoad={() => handleImageLoad(item.id)}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                          }}
+                        />
+                      </>
                     </AnimatePresence>
                   </Box>
                 </Card>

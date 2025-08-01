@@ -18,7 +18,6 @@ export default function CardConvites() {
     const [isClient, setIsClient] = useState(false);
 
     const theme = useTheme();
-    // No SSR: true para evitar diferença na renderização, mas só é confiável após montar o client
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
 
     useEffect(() => {
@@ -39,7 +38,7 @@ export default function CardConvites() {
         }
     };
 
-    if (!isClient) return null; // Não renderiza nada no SSR
+    if (!isClient) return null; 
 
     if (isMobile) {
         return (

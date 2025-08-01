@@ -7,6 +7,7 @@ import CardInvite from './components/cardinvite';
 import { Box, Typography, Avatar, Container, } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
     const scrollToSection = (id) => {
@@ -24,38 +25,71 @@ export default function Home() {
                     p: '1.5rem',
                     width: '100%',
                     display: 'flex',
+                    flexDirection: 'row',
                     justifyContent: 'space-between',
-                    flexWrap: 'wrap',
                     alignItems: 'center',
+                    flexWrap: 'wrap',
                     borderBottom: '1px solid #9FB4C2',
+                    gap: { xs: '1rem', md: 0 },
                 }}
             >
-                <Typography sx={{ color: '#7397AD', fontSize: { md: '1.5rem', xs: '1rem' } }}>
-                    Sua logo aqui
-                </Typography>
+                <Box
+                    component="img"
+                    src="/images/logo.webp"
+                    alt="Logo da Neves arts"
+                    sx={{
+                        width: { xs: '120px', md: '170px' },
+                        height: 'auto',
+                        flexShrink: 0,
+                    }}
+                />
 
-                <Box sx={{ display: 'flex', gap: { md: '1.5rem', xs: '1rem' }, mt: { xs: '1rem', md: 0 } }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: { xs: '0.8rem', md: '1.5rem' },
+                        flexWrap: 'wrap',
+                        justifyContent: 'flex-end',
+                        flexGrow: 1,
+                    }}
+                >
                     <Typography
                         onClick={() => scrollToSection('sobre')}
-                        sx={{ color: '#7397AD', fontSize: { md: '1.25rem', xs: '1rem' }, cursor: 'pointer' }}
+                        sx={{
+                            color: '#7397AD',
+                            fontSize: { md: '1.25rem', xs: '1rem' },
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                        }}
                     >
                         Sobre
                     </Typography>
                     <Typography
                         onClick={() => scrollToSection('trabalhos')}
-                        sx={{ color: '#7397AD', fontSize: { md: '1.25rem', xs: '1rem' }, cursor: 'pointer' }}
+                        sx={{
+                            color: '#7397AD',
+                            fontSize: { md: '1.25rem', xs: '1rem' },
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                        }}
                     >
                         Trabalhos
                     </Typography>
                     <Typography
                         onClick={() => scrollToSection('contato')}
-                        sx={{ color: '#7397AD', fontSize: { md: '1.25rem', xs: '1rem' }, cursor: 'pointer' }}
+                        sx={{
+                            color: '#7397AD',
+                            fontSize: { md: '1.25rem', xs: '1rem' },
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                        }}
                     >
                         Contato
                     </Typography>
                 </Box>
-
             </Box>
+
+
 
             {/* Intro */}
             <Box
@@ -71,8 +105,14 @@ export default function Home() {
                     gap: '1.5rem',
                 }}
             >
-                <Avatar sx={{ width: { md: '15.625rem', xs: '12rem' }, height: { md: '15.625rem', xs: '12rem' } }} />
-
+                <Avatar
+                    src="/images/foto tio.webp"
+                    alt="Foto de perfil"
+                    sx={{
+                        width: { md: '15.625rem', xs: '12rem' },
+                        height: { md: '15.625rem', xs: '12rem' },
+                    }}
+                />
                 <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: { xs: 'center', md: 'left' } }}>
                     <Typography sx={{ mt: '1.5rem', color: 'white', fontSize: { md: '2.125rem', xs: '2rem' } }}>
                         Neves Arts
@@ -125,30 +165,13 @@ export default function Home() {
                             textAlign: 'center',
                         }}
                     >
-                        Banners
+                        {'Banners'}
                     </Typography>
 
                     <Box sx={{ width: '100%' }}>
                         <CardBanner />
                     </Box>
                 </Box>
-
-
-                {/* Convites */}
-                <Typography
-                    sx={{
-                        color: 'white',
-                        fontSize: { md: '2rem', xs: '1.5rem' },
-                        mx: 'auto',
-                        mt: '3rem',
-                        mb: '1rem',
-                        textAlign: 'center',
-                    }}
-                >
-                    Convites
-                </Typography>
-
-                <CardInvite />
             </Container>
 
             {/* Contato */}

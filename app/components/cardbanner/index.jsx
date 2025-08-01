@@ -1,4 +1,4 @@
-import { Box, Card, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Card, CircularProgress, useMediaQuery, useTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -11,8 +11,31 @@ const bannerData = [
   { id: 5, image: 'banner food service.webp' },
 ];
 
-function renderCard(item, isPriority = false) {
-  return (
+export default function CardBanner() {
+  const [mounted, setMounted] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true); 
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % bannerData.length);
+      setLoading(true); 
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [isMobile]);
+
+  if (!mounted) return null;
+
+  const renderCard = (item, isPriority = false) => (
     <Card
       key={item.id}
       sx={{
@@ -31,40 +54,36 @@ function renderCard(item, isPriority = false) {
         height: { xs: '180px', md: '240px' },
       }}
     >
+      {loading && (
+        <Box
+          sx={{
+            zIndex: 2,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress sx={{ color: 'white' }} />
+        </Box>
+      )}
       <Image
         src={`/images/${item.image}`}
         alt={`Banner ${item.id}`}
         fill
         priority={isPriority}
-        style={{ objectFit: 'cover', position: 'absolute', objectPosition: 'center' }}
-        placeholder="blur"
-        blurDataURL="/images/placeholder-small.webp"
+        onLoadingComplete={() => setLoading(false)}
+        style={{
+          objectFit: 'cover',
+          position: 'absolute',
+          objectPosition: 'center',
+        }}
       />
     </Card>
   );
-}
-
-export default function CardBanner() {
-  const [mounted, setMounted] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % bannerData.length);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [isMobile]);
-
-  if (!mounted) return null;
 
   return (
     <Box
